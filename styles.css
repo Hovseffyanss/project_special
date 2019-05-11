@@ -1,0 +1,111 @@
+h1 {
+  color:#2D3142;
+}
+
+h4{
+  color:#2D3142;
+}
+
+.button1{
+background-color: #EF8354;
+border-color: #EF8354;
+}
+.button1:hover{
+  background-color: #eb662d;
+  border-color: #eb662d;
+}
+
+.border-style{
+  border-style: dashed;
+  border-color: #EF8253;
+  border-width: 2px;
+}
+
+
+.background-color{
+  background-color: white;
+
+}
+.background-color1{
+  background-color:white;
+}
+
+.padding{
+  padding: 15px;
+}
+
+.lead{
+
+  font-size: 18px;
+}
+* {
+  box-sizing: border-box;
+}
+
+/* Style the search field */
+form.example input[type=text] {
+  padding: 10px;
+  font-size: 13px;
+  border: 1px ;
+  float: left;
+  width: 75%;
+  background: #f1f1f1;
+}
+
+/* Style the submit button */
+form.example button {
+  float: left;
+  width: 20%;
+  padding: 10px;
+  background: #EF8354;
+  color: white;
+  font-size: 13px;
+  border: 1px ;
+  border-left: none; /* Prevent double borders */
+  cursor: pointer;
+}
+
+form.example button:hover {
+  background: #eb662d;
+}
+
+/* Clear floats */
+form.example::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+
+.navtext:hover{
+  color:#EF8354;
+}
+
+.signinlink{
+  color:"white";
+}
+
+
+.icon:hover{
+color:#EF8253;
+
+}
+.buttonicon:hover{
+  background-color: #EF8253;
+}
+.buttonicon:focus{
+  box-shadow: none;
+}
+
+
+
+.btn-outline-secondary:hover{
+  border-color: #EF8253;
+}
+
+.activecolor:active{
+  color:#EF8253;
+}
+.inputwidth{
+  width: 180px;
+}
