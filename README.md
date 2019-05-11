@@ -1,2 +1,2 @@
 This repo is a class project 
-Hello
+Hi hello
