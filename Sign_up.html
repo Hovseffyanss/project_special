@@ -7,7 +7,9 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="styles.css">
+		<link rel="stylesheet" href="styles.css">
+		<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+		
 
     <title>Soul Market</title>
   </head>
@@ -17,37 +19,37 @@
   <h4> Sign Up </h4>
   <p> Please fill in this form to create an account </p>
   <hr>
-    <form>
+    <form id="registrationForm">
   <div class="form-row mt-3">
     <div class="form-group col-md-6">
       <label for="inputname"> First Name </label>
-      <input type="text" class="form-control" id="inputname" placeholder="">
+      <input type="text" class="form-control" id="inputname" placeholder="" name="firstname">
     </div>
     <div class="form-group col-md-6">
       <label for="inputlastname"> Last Name</label>
-      <input type="text" class="form-control" id="inputlastname" placeholder="">
+      <input type="text" class="form-control" id="inputlastname" placeholder="" name="lastname">
     </div>
     <div class="form-group col-md-6">
       <label for="inputEmail4"> Email </label>
-      <input type="email" class="form-control" id="inputEmail4" placeholder="">
+      <input type="email" class="form-control" id="inputEmail4" placeholder="" name="email">
     </div>
     <div class="form-group col-md-6">
       <label for="inputPassword4"> Password </label>
-      <input type="password" class="form-control" id="inputPassword4" placeholder="">
+      <input type="password" class="form-control" id="inputPassword4" placeholder="" name="password">
     </div>
   </div>
   <div class="form-group">
     <label for="inputAddress">Address</label>
-    <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
+    <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St" name="address">
   </div>
   <div class="form-row">
     <div class="form-group col-md-6">
       <label for="inputCity">City</label>
-      <input type="text" class="form-control" id="inputCity">
+      <input type="text" class="form-control" id="inputCity" name="city">
     </div>
     <div class="form-group col-md-4">
       <label for="inputCountry">Country</label>
-      <select id="inputCountry" class="form-control">
+      <select id="inputCountry" class="form-control" name="country">
         <option selected>Choose...</option>
   <option value="AF">Afghanistan</option>
 	<option value="AX">Åland Islands</option>
@@ -302,26 +304,41 @@
     </div>
     <div class="form-group col-md-2">
       <label for="inputZip">Zip</label>
-      <input type="text" class="form-control" id="inputZip">
+      <input type="text" class="form-control" id="inputZip" name="zipcode">
     </div>
   </div>
   <div class="form-group">
     <div class="form-check">
-      <input class="form-check-input" type="checkbox" id="gridCheck">
+      <input class="form-check-input" type="checkbox" id="gridCheck" name="check">
       <label class="form-check-label" for="gridCheck">
         I've read the last page of bible and understand the consequences
       </label>
     </div>
   </div>
-  <button type="submit" class="btn btn-primary col-md-12 button1"><a href="home_page.html" style="text-decoration:none;color:#ffffff"> Join Now </a></button>
 </form>
+<button type="submit" class="btn btn-primary col-md-12 button1", id="btnRegister"> Join Now </button>
+
 <p class="lead text-center mt-3" > Already have an acoount? <a href=front_page.html> Sign in </a> </p>
 </div>
 </div>
 
+<script type="text/javascript" >
+  $(document).ready(function() {
+    $("#btnRegister").on("click", function() {
+      // post form data
+      $.ajax({ 
+        type: "POST",
+        url: "/sign-up",
+        data: $('#registrationForm').serialize()
+      });
+
+    });
+	})
+	</script>
+
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
   </body>

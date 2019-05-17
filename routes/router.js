@@ -2,13 +2,104 @@ const express = require('express')
 const router = express.Router();
 
 const path = process.cwd();
-const UserSchema = require(`${path}/schemas/user_schema.js`)
-const UserModels = require(`${path}/models/user_model.js`)
+const userSchema = require(`${path}/schemas/user_schema.js`)
+const userModel = require(`${path}/models/user_model.js`)
 
-router.use(function timeLog (req, res, next) {
-    console.log('Time: ', Date.now())
-    next()
+router.use(express.json())
+router.use(express.urlencoded({extended: true}))
+  
+/**
+ * User Authentication
+ */
+
+  router.get("/front-page", async (req, res, next) => {
+      console.log("GET/front_page.html")
+      res.sendFile("front_page.html", {root : path})
   })
+
+  router.post("/front-page", async (req, res, next) => {
+    console.log("POST/front_page.html")
+    console.log(req.body, 'body')
+    const email = req.body.email
+    const password = req.body.password
+
+    try {
+        const loginResult = await userModel.login(email, password)
+        console.log(loginResult.email)
+        res.sendFile("home_page.html", {root : path})
+        res.sendStatus(200)
+
+    } catch (err) {
+        console.log("Unable to log in")
+        next(err)
+    }
+  })
+
+  /**
+   * User Registration
+   */
+
+  router.get("/sign-up", async (req, res, next) => {
+      console.log("GET/Sign_up.html")
+
+
+      res.sendFile("Sign_up.html",  {root : path})
+  })
+
+  router.post("/sign-up", async (req, res, next) => {
+
+    console.log("POST/Sign_up.html")
+    console.log(req.body)
+    try {
+        const user = new userSchema(req.body)
+        user.cart = {}
+        const result = userModel.createUser(user)
+        console.log("SUCCESS")
+        // res.setHeader("Content-Type", "text/html")
+        // res.method = 'get'
+        // res.redirect("/front-page")
+        // res.
+        res.send(200)
+    } catch(err) {
+        next(err)
+    }
+  })
+
+
+router.get("/trial", async (req, res, next) => {
+    console.log("GET/Sign_up.html")
+    res.sendFile("trial.html",  {root : path})
+})
+
+router.post("/trial", async (req, res, next) => {
+
+  console.log("POST/Sign_up.html")
+  console.log(req.body)
+  console.log(req.query)
+  console.log(req.originalUrl + " original url")
+  res.end()
+
+})
+
+
+
+
+
+
+  /**
+   * Home Page
+   */
+
+  router.get("/home_page.html", async (req, res, next) => {
+    //   res.sendFile("home_page.html", {root: path})
+    // res.send("YEY")
+    
+    res.sendFile("home_page.html", {root: path})
+  })
+
+
+
+
 
 router.post('/users/', async (req, res, next) => {
 
@@ -29,6 +120,13 @@ router.post('/users/', async (req, res, next) => {
     }
 
 })
+
+
+/**
+ * REFERENCES!JHAKSFHKAJSHDFLAJSHFLDHLKAJSHFLKAS
+ * 
+ */
+
 
 router.post('/login', async (req, res, next) => {
     const body = req.body

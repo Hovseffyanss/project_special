@@ -11,13 +11,6 @@ const Cart = {
 
 // USER SCHEMA
 const UserSchema = new mongoose.Schema({
-    username : {
-        type : String,
-        required : true,
-        trim : true,
-        unique : true,
-        lowercase : true
-    },
     email : {
         type : String,
         required : true,
@@ -31,6 +24,7 @@ const UserSchema = new mongoose.Schema({
     address : String,
     city : String,
     country : String, 
+    zipcode : String,
     cart: Cart
 })
 
@@ -43,8 +37,8 @@ UserSchema.pre('save', function (next) {
     next();
 });
 
-UserSchema.statics.findUserForLogin = async function(username) {
-    return User.findOne({username: username})
+UserSchema.statics.findUserForLogin = async function(email) {
+    return User.findOne({email: email})
 }
 
 UserSchema.methods.isPasswordCorrect = function(password) {
@@ -55,8 +49,8 @@ UserSchema.statics.createAndSaveUser = async function(user) {
     return user.save()
 }
 
-UserSchema.statics.findUserByUserName = async function(username) {
-    return User.findOne({username: username},{password: false})
+UserSchema.statics.findUserByEmail = async function(email) {
+    return User.findOne({email: email},{password: false})
 }
 
 

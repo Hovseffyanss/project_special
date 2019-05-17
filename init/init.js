@@ -9,5 +9,5 @@ mongoose.set('useCreateIndex', true);
 // console.log('connecting to path => ' + process.env.db_path);
 // mongoose.connect(process.env.db_path);
 
-console.log('connecting to path => ' + "mongodb://localhost:27017/project_special");
-mongoose.connect("mongodb://localhost:27017/project_special");
+console.log('connecting to path => ' + "mongodb://localhost:27017/project_special_lh");
+mongoose.connect("mongodb://localhost:27017/project_special_lh");
