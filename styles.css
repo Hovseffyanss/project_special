@@ -109,3 +109,10 @@ color:#EF8253;
 .inputwidth{
   width: 180px;
 }
+
+.usertext{
+  color:#EF8253;
+}
+.usertext:hover{
+  color:#eb662d;
+}
