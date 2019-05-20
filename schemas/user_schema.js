@@ -25,7 +25,8 @@ const UserSchema = new mongoose.Schema({
     city : String,
     country : String, 
     zipcode : String,
-    cart: Cart
+    cart: Cart,
+    favourites: Array  
 })
 
 /**
@@ -53,11 +54,9 @@ UserSchema.statics.findUserByEmail = async function(email) {
     return User.findOne({email: email},{password: false})
 }
 
-
 UserSchema.statics.updateUser = async function(user) {
-
+    return User.findOneAndUpdate({email: user.email}, user, {upsert : true})
 }
-
 
 
 const User = mongoose.model("User", UserSchema)

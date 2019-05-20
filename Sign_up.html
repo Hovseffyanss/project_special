@@ -329,7 +329,10 @@
       $.ajax({ 
         type: "POST",
         url: "/sign-up",
-        data: $('#registrationForm').serialize()
+				data: $('#registrationForm').serialize(),
+				success: function(data) {
+					window.location.href = "front_page.html"
+				}
       });
 
     });

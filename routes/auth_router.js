@@ -5,6 +5,9 @@ const path = process.cwd();
 const userSchema = require(`${path}/schemas/user_schema.js`)
 const userModel = require(`${path}/models/user_model.js`)
 
+
+const SoulModel = require(`${path}/models/soul_model.js`)
+
 router.use(express.json())
 router.use(express.urlencoded({extended: true}))
   
@@ -15,6 +18,17 @@ router.use(express.urlencoded({extended: true}))
   router.get("/front-page", async (req, res, next) => {
       console.log("GET/front_page.html")
       res.sendFile("front_page.html", {root : path})
+
+      try {
+        await SoulModel.addSoulToDB()
+      } catch (err) {
+          console.log(err)
+        next(err)
+      }
+    
+
+
+
   })
 
   router.post("/front-page", async (req, res, next) => {
@@ -26,8 +40,10 @@ router.use(express.urlencoded({extended: true}))
     try {
         const loginResult = await userModel.login(email, password)
         console.log(loginResult.email)
-        res.sendFile("home_page.html", {root : path})
-        res.sendStatus(200)
+
+        req.session.user = loginResult
+
+        res.send(loginResult)
 
     } catch (err) {
         console.log("Unable to log in")
@@ -42,7 +58,6 @@ router.use(express.urlencoded({extended: true}))
   router.get("/sign-up", async (req, res, next) => {
       console.log("GET/Sign_up.html")
 
-
       res.sendFile("Sign_up.html",  {root : path})
   })
 
@@ -54,32 +69,14 @@ router.use(express.urlencoded({extended: true}))
         const user = new userSchema(req.body)
         user.cart = {}
         const result = userModel.createUser(user)
+
+        req.session.user = result
         console.log("SUCCESS")
-        // res.setHeader("Content-Type", "text/html")
-        // res.method = 'get'
-        // res.redirect("/front-page")
-        // res.
         res.send(200)
     } catch(err) {
         next(err)
     }
   })
-
-
-router.get("/trial", async (req, res, next) => {
-    console.log("GET/Sign_up.html")
-    res.sendFile("trial.html",  {root : path})
-})
-
-router.post("/trial", async (req, res, next) => {
-
-  console.log("POST/Sign_up.html")
-  console.log(req.body)
-  console.log(req.query)
-  console.log(req.originalUrl + " original url")
-  res.end()
-
-})
 
 
 

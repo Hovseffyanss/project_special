@@ -42,32 +42,36 @@ async function createUser(user) {
  */
 
  async function addToCart(user, soul) {
+
      user.cart.souls.push(soul)
 
-    //  UserSchemas.
+     await UserSchemas.updateUser(user)
+
+     const result = await UserSchemas.findUserByEmail(user.email)
+
+     console.log(result.cart)
 
  }
 
+async function addToFavourites(user, soul) {
+    user.favourites.push(soul)
 
+    await UserSchemas.updateUser(user)
 
- async function purchaseSoul(user, soul) {
+    const result = await UserSchemas.findUserByEmail(user.email)
 
-
+    console.log(result.favourites)
 
 }
 
+ async function purchaseSoul(user, soul) {
 
-
-
-
-
-
-
-
+}
 
 module.exports = {
     login,
     getUser,
-    // getAllUsers,
+    addToCart,
+    addToFavourites,
     createUser
 }

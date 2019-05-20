@@ -1,52 +1,45 @@
 const mongoose = require('mongoose');
-const pbkdf2 = require('pbkdf2');
 
-const DeadlySin = {
-    PRIDE: "PRIDE",
-    ENVY: "ENVY",
-    GLUTTONY: "GLUTTONY",
-    LUST: "LUST",
-    ANGER: "ANGER",
-    GREED: "GREED",
-    SLOTH: "SLOTH"
+// const DeadlySin = {
+//     PRIDE: "PRIDE",
+//     ENVY: "ENVY",
+//     GLUTTONY: "GLUTTONY",
+//     LUST: "LUST",
+//     ANGER: "ANGER",
+//     GREED: "GREED",
+//     SLOTH: "SLOTH"
+// }
+
+const SoulType = {
+    Sinful: "SINFUL",
+    Mediocre: "MEDIOCRE",
+    Saint: "SAINT"
 }
 
 const SoulSchema = new mongoose.Schema({
     firstname: String,
     lastname: String,
     price: String,
-    dominantSin: DeadlySin 
+    story: String,
+    // dominantSin: DeadlySin,
+    soulType: String 
 })
 
-/**
- * TODO 
- */
-
-SoulSchema.pre('save', function (next) {
-    this.password = pbkdf2.pbkdf2Sync(this.password, 'salt', 1, 32, 'sha512').toString('hex');
-    next();
-});
-
-SoulSchema.statics.findUserForLogin = async function(username) {
-    return User.findOne({username: username})
+SoulSchema.statics.getAllSouls = async function() {
+    return Soul.find()
 }
 
-SoulSchema.methods.isPasswordCorrect = function(password) {
-    return this.password === pbkdf2.pbkdf2Sync(password, 'salt', 1, 32, 'sha512').toString('hex');
+SoulSchema.statics.createAndSaveSoul = async function(soul) {
+    return soul.save()
 }
 
-UserSchema.statics.createAndSaveUser = async function(user) {
-    return user.save()
+SoulSchema.statics.getSoulsBySoulType = async function(soulType) {
+    return Soul.find({soulType : soulType})
 }
 
-UserSchema.statics.findAllUsers = async function() {
-    return User.find().select('username email firstname lastname')
+const Soul = mongoose.model("Soul", SoulSchema)
+
+module.exports = {
+    Soul,
+    SoulType
 }
-
-UserSchema.statics.findUserByUserName = async function(username) {
-    return User.findOne({username: username},{password: false})
-}
-
-const User = mongoose.model("User", UserSchema)
-
-module.exports = User
