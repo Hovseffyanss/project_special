@@ -49,13 +49,33 @@ function myFunction() {
         type: "POST",
         url: "/front-page",
         data: $('#example').serialize(),
-        success: function (data) {
+        success: function (loginResult) {
+          // Redirect to home page when user authentication is successful
+          // openHomePage(loginResult)
+
           window.location.href = "home_page.html"
+
         }
       });
 
     });
   })
+
+  // open homepage with the given user params
+  const openHomePage = function(loginResult) {
+    $.ajax({ 
+        type: "GET",
+        url: "/home-page",
+        data: loginResult,
+        success: function (data) {
+
+          window.location.href = "home_page.html"
+
+        }
+      });
+  }
+
+
 
 </script>
 </div>

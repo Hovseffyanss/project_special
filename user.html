@@ -8,11 +8,29 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="styles.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 
     <title>Soul Market</title>
   </head>
   <body> <nav class="navbar navbar-expand-sm navbar-light bg-light fixed-top">
 
+		<script>
+			
+		$(document).ready(function() {
+    $.ajax({
+      type: "GET",
+      url: "/user-profile",
+      success: function (user) {
+				$("#user-firstname-id").text(user.firstname)
+				$("#user-lastname-id").text(user.lastname)
+				$("#user-address-id").text(user.address)
+				$("#user-city-id").text(user.city)
+				$("#user-country-id").text(user.country)
+				$("#user-zip-id").text(user.zip)
+      }
+    })
+	})		
+	</script>
 
   <div class="collapse navbar-collapse mr-auto" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
@@ -88,7 +106,7 @@
                     <table class="table table-striped ">
   <thead>
     <tr>
-      <th scope="col">First Name</th>
+      <th scope="col" id="user-firstname-id">First Name</th>
       <td></td>
       <td></td>
       <td></td>
@@ -96,26 +114,26 @@
   </thead>
   <tbody>
     <tr>
-      <th scope="row">Last Name</th>
+      <th scope="row" id="user-lastname-id">Last Name</th>
       <td></td>
       <td></td>
       <td></td>
     </tr>
     <tr>
-      <th scope="row">Address</th>
+      <th scope="row" id="user-address-id" >Address</th>
       <td></td>
       <td></td>
       <td></td>
     </tr>
     <tr>
-      <th scope="row">City</th>
+      <th scope="row" id="user-city-id">City</th>
       <td></td>
       <td></td>
       <td></td>
     </tr>
     <tr>
-      <th scope="row">Country</th>
-      <th> Zip </th>
+      <th scope="row" id="user-country-id">Country</th>
+      <th id="user-zip-id"> Zip </th>
       <td></td>
       <td></td>
     </tr>
