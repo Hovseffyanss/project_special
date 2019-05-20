@@ -2,25 +2,49 @@ const express = require('express')
 const homeRouter = express.Router()
 
 
+
+
 const path = process.cwd();
+
+const UserModel = require(`${path}/models/user_model.js`)
+
+
 homeRouter.use(express.json())
 homeRouter.use(express.urlencoded({extended: true}))
 
-homeRouter.get("/", async (req, res, next) => {
+homeRouter.get("/user", async (req, res, next) => {
 
-    // const user = req.query
-
-    // if (user) {
-    //     alert(`Welcome ` + user.email)
-
-    //     currentUser = user
-
-    //     console.log(user)
-    //     res.sendStatus(200)
-    // }
-    console.log( req.session.user)
+    console.log(req.session.user)
     
     res.send(req.session.user)
+
+    try {
+
+        // UserModel.addToCart(req.session.user, {
+        //     firstname: "Dumbass",
+        //     lastname: "Stupidass"
+        // })
+
+        // UserModel.addToFavourites(req.session.user, {
+        //     firstname: "Yoo",
+        //     lastname: "Suupp"
+        // })
+
+    } catch (err) {
+
+        console.log(err)
+        next(err)
+    }
+
+
+
+
+})
+
+homeRouter.get("/souls", async (req, res, next) => {
+
+
+
 
 
 })

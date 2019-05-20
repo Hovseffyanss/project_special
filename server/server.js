@@ -4,8 +4,8 @@ const app = express()
 
 const session = require('express-session')
 
-
 const path = process.cwd();
+const SoulModel = require(`${path}/models/soul_model.js`)
 // Define server routers
 const authRouter = require(`${path}/routes/auth_router.js`)
 const homeRouter = require(`${path}/routes/home_router.js`)
@@ -33,9 +33,14 @@ app.use(express.json())
 
 app.use(express.urlencoded({extended: true}))
 
+
+
+
+
 app.use(function (err, req, res, next) {
 
   if (err.status >= 100 && err.status < 600){
+    console.log(err)
     res.status(err.status);
   } else {
     res.status(500).end();

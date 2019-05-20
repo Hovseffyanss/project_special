@@ -5,6 +5,9 @@ const path = process.cwd();
 const userSchema = require(`${path}/schemas/user_schema.js`)
 const userModel = require(`${path}/models/user_model.js`)
 
+
+const SoulModel = require(`${path}/models/soul_model.js`)
+
 router.use(express.json())
 router.use(express.urlencoded({extended: true}))
   
@@ -15,6 +18,17 @@ router.use(express.urlencoded({extended: true}))
   router.get("/front-page", async (req, res, next) => {
       console.log("GET/front_page.html")
       res.sendFile("front_page.html", {root : path})
+
+      try {
+        await SoulModel.addSoulToDB()
+      } catch (err) {
+          console.log(err)
+        next(err)
+      }
+    
+
+
+
   })
 
   router.post("/front-page", async (req, res, next) => {

@@ -19,7 +19,7 @@
 		$(document).ready(function() {
     $.ajax({
       type: "GET",
-      url: "/user-profile",
+      url: "/user-profile/user",
       success: function (user) {
 				$("#user-firstname-id").text(user.firstname)
 				$("#user-lastname-id").text(user.lastname)

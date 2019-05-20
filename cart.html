@@ -14,6 +14,39 @@
   <body> <nav class="navbar navbar-expand-sm navbar-light bg-light fixed-top">
 
 
+
+    <script>
+    
+    $(document).ready(function() {
+    $.ajax({
+      type: "GET",
+      url: "/user-profile/cart",
+      success: function (cart) {
+
+        // soul names
+        $("#soul-name-one-id").text(`${cart.souls[0].firsname} ${cart.souls[0].lastname}`)
+        $("#soul-name-two-id").text(`${cart.souls[1].firsname} ${cart.souls[1].lastname}`)
+        $("#soul-name-three-id").text(`${cart.souls[2].firsname} ${cart.souls[2].lastname}`)
+
+        // soul prices
+        $("#soul-price-one-id").text(`${cart.souls[0].price} $`)
+        $("#soul-price-two-id").text(`${cart.souls[1].price} $`)
+        $("#soul-price-three-id").text(`${cart.souls[2].price} $`)
+
+        // soul description
+        $("#soul-description-one-id").text(cart.souls[0].description)
+        $("#soul-description-two-id").text(cart.souls[1].description)
+        $("#soul-description-three-id").text(cart.souls[2].description)
+
+      }
+    })
+  })
+      
+    </script>
+
+
+
+
   <div class="collapse navbar-collapse mr-auto" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item ">
@@ -77,24 +110,24 @@
       <ul class="list-group mb-3">
         <li class="list-group-item d-flex justify-content-between lh-condensed">
           <div>
-            <h6 class="my-0">Product name</h6>
-            <small class="text-muted">Brief description</small>
+            <h6 class="my-0" id="soul-name-one-id">Product name</h6>
+            <small class="text-muted" id="soul-description-one-id">Brief description</small>
           </div>
-          <span class="text-muted">$12</span>
+          <span class="text-muted" id="soul-price-one-id">$12</span>
         </li>
         <li class="list-group-item d-flex justify-content-between lh-condensed">
           <div>
-            <h6 class="my-0">Second product</h6>
-            <small class="text-muted">Brief description</small>
+            <h6 class="my-0" id="soul-name-two-id">Second product</h6>
+            <small class="text-muted" id="soul-description-two-id">Brief description</small>
           </div>
-          <span class="text-muted">$8</span>
+          <span class="text-muted" id="soul-price-two-id" >$8</span>
         </li>
         <li class="list-group-item d-flex justify-content-between lh-condensed">
           <div>
-            <h6 class="my-0">Third item</h6>
-            <small class="text-muted">Brief description</small>
+            <h6 class="my-0" id="soul-name-three-id">Third item</h6>
+            <small class="text-muted" id="soul-description-three-id">Brief description</small>
           </div>
-          <span class="text-muted">$5</span>
+          <span class="text-muted" id="soul-price-three-id">$5</span>
         </li>
 
 
