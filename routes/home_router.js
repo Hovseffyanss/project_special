@@ -13,11 +13,15 @@ homeRouter.use(express.urlencoded({extended: true}))
 homeRouter.get("/get-user", async (req, res, next) => {
 
     const user = req.session.user
+    try {
+        if (!user) {
+            throw new Errors.UserSessionEnded()
+        }
+        res.send(req.session.user)    
 
-    if (!user) {
-        throw new Errors.UserSessionEnded()
+    } catch(err) {
+        next(err)
     }
-    res.send(req.session.user)
 
 })
 

@@ -22,13 +22,9 @@ router.use(express.urlencoded({extended: true}))
       try {
         await SoulModel.addSoulToDB()
       } catch (err) {
-          console.log(err)
+        console.log(err)
         next(err)
       }
-    
-
-
-
   })
 
   router.post("/front-page", async (req, res, next) => {
@@ -78,84 +74,5 @@ router.use(express.urlencoded({extended: true}))
         next(err)
     }
   })
-
-
-
-
-
-
-  /**
-   * Home Page
-   */
-
-  router.get("/home_page.html", async (req, res, next) => {
-    //   res.sendFile("home_page.html", {root: path})
-    // res.send("YEY")
-    
-    res.sendFile("home_page.html", {root: path})
-  })
-
-
-
-
-
-router.post('/users/', async (req, res, next) => {
-
-    const body = req.body
-    const user = new UserSchema({
-        username: body.username,
-        email: body.email,
-        firstname: body.firstname,
-        lastname: body.lastname,
-        password: body.password
-    })
-
-    try {
-        const result = await UserModels.createUser(user)
-        res.status(201).send(`User has been successfuly saved`)
-    } catch (err) {
-        next(err)
-    }
-
-})
-
-
-/**
- * REFERENCES!JHAKSFHKAJSHDFLAJSHFLDHLKAJSHFLKAS
- * 
- */
-
-
-router.post('/login', async (req, res, next) => {
-    const body = req.body
-    const username = body.username
-    const password = body.password
-    try {
-        const result = await UserModels.login(username, password)
-        res.status(200).send(`You have been successfully authenticated as ${result.username}`)
-    } catch (err) {
-        next(err)
-    }
-})
-
-router.get("/users/", async (req, res, next) => {
-    // try {
-    //     const result = await UserModels.getAllUsers()
-    //     res.json(result)
-    // } catch (err) {
-    //     next(err)
-    // }
-
-})
-
-router.get('/users/:username', async (req, res, next) => {
-    const username = req.params.username
-    try {
-        const result = await UserModels.getUser(username)
-        res.json(result)
-    } catch(err) {
-        next(err)
-    }
-})
 
 module.exports = router

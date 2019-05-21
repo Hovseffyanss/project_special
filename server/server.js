@@ -36,12 +36,8 @@ app.use(function (err, req, res, next) {
 
   if(err.errorCode != -1) {
 
-    if (err.errorCode == 401) {
-      console.log("no user")
-      res.sendFile("/front_page.html")
-    } else {
-      res.status(err.errorCode).send(err.message).end()
-    }
+    res.status(err.errorCode).send(err.message).end()
+    
   }
   // If the error is not known
   console.error(err.stack)
