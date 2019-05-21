@@ -1,12 +1,9 @@
 const express = require('express')
 const homeRouter = express.Router()
 
-
-
-
 const path = process.cwd();
 
-const UserModel = require(`${path}/models/user_model.js`)
+const Errors = require(`${path}/errors/errors.js`)
 const SoulModel = require(`${path}/models/soul_model.js`)
 
 
@@ -15,8 +12,11 @@ homeRouter.use(express.urlencoded({extended: true}))
 
 homeRouter.get("/get-user", async (req, res, next) => {
 
-    console.log(req.session.user)
-    
+    const user = req.session.user
+
+    if (!user) {
+        throw new Errors.UserSessionEnded()
+    }
     res.send(req.session.user)
 
 })
@@ -28,7 +28,6 @@ homeRouter.get("/get-souls", async (req, res, next) => {
         console.log(souls)
         res.send(souls)
     } catch (err) {
-        console.log(err)
         next(err)
     }
 })

@@ -2,14 +2,11 @@
 const mongoose = require('mongoose');
 const pbkdf2 = require('pbkdf2');
 
-
-// USER CART
 const Cart = {
     souls: Array, // Array of souls currently in the Cart
     totalValue: Number // The total value of the cart. The Sum of all prices of souls kept in the Cart
 }
 
-// USER SCHEMA
 const UserSchema = new mongoose.Schema({
     email : {
         type : String,
@@ -28,10 +25,6 @@ const UserSchema = new mongoose.Schema({
     cart: Cart,
     favourites: Array  
 })
-
-/**
- * UTILITY FUNCTIONS
- */
 
 UserSchema.pre('save', function (next) {
     this.password = pbkdf2.pbkdf2Sync(this.password, 'salt', 1, 32, 'sha512').toString('hex');
