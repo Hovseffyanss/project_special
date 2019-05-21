@@ -1,27 +1,19 @@
 const mongoose = require('mongoose');
 
-// const DeadlySin = {
-//     PRIDE: "PRIDE",
-//     ENVY: "ENVY",
-//     GLUTTONY: "GLUTTONY",
-//     LUST: "LUST",
-//     ANGER: "ANGER",
-//     GREED: "GREED",
-//     SLOTH: "SLOTH"
-// }
-
 const SoulType = {
-    Sinful: "SINFUL",
-    Mediocre: "MEDIOCRE",
-    Saint: "SAINT"
+    Sinful: "Sinful Soul",
+    Mediocre: "Mediocre Soul",
+    Saint: "Saint Soul"
 }
 
 const SoulSchema = new mongoose.Schema({
     firstname: String,
     lastname: String,
-    price: String,
-    story: String,
-    // dominantSin: DeadlySin,
+    price: Number,
+    story: {
+        type: String,
+        unique: true
+    },
     soulType: String 
 })
 
@@ -35,6 +27,14 @@ SoulSchema.statics.createAndSaveSoul = async function(soul) {
 
 SoulSchema.statics.getSoulsBySoulType = async function(soulType) {
     return Soul.find({soulType : soulType})
+}
+
+SoulSchema.statics.getSoulByStory = async function(story) {
+    return Soul.findOne({story: story})
+}
+
+SoulSchema.statics.deleteSoul = async function(soul) {
+    return Soul.deleteOne(soul)
 }
 
 const Soul = mongoose.model("Soul", SoulSchema)

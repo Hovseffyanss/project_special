@@ -43,6 +43,12 @@ async function createUser(user) {
 
  async function addToCart(user, soul) {
 
+    const alreadyAdded = user.cart.souls.filter(function(subjectSoul){ return subjectSoul.story === soul.story })
+
+    if (alreadyAdded) {
+        console.log("Already added")
+    }
+
      user.cart.souls.push(soul)
 
      await UserSchemas.updateUser(user)

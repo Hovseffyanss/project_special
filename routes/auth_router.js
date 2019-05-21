@@ -68,6 +68,7 @@ router.use(express.urlencoded({extended: true}))
     try {
         const user = new userSchema(req.body)
         user.cart = {}
+        user.cart.totalValue = 0
         const result = userModel.createUser(user)
 
         req.session.user = result
