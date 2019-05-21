@@ -29,7 +29,6 @@ homeRouter.get("/get-souls", async (req, res, next) => {
     console.log("/get-souls")
     try {
         const souls = await SoulModel.getSoulsForHome()
-        console.log(souls)
         res.send(souls)
     } catch (err) {
         next(err)

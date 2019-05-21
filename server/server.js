@@ -34,6 +34,9 @@ app.use(express.urlencoded({extended: true}))
 
 app.use(function (err, req, res, next) {
 
+  console.log(err)
+  // if(err.status >= 100 && err.status < 600) {
+    
   if(err.errorCode != -1) {
 
     res.status(err.errorCode).send(err.message).end()
@@ -41,7 +44,8 @@ app.use(function (err, req, res, next) {
   }
   // If the error is not known
   console.error(err.stack)
+  // }
   res.status(500).end();
 })
 
-app.listen(env, () => {console.log(`Port ${env} Loud and Clear!`)})
+app.listen(env, () => {console.log(`Port ${env} Loud and Clear!`)})   

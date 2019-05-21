@@ -46,7 +46,6 @@ userRouter.post("/add-to-cart", async (req, res, next) => {
         if (!user) {
             throw new Errors.UserSessionEnded()
         }
-
         await UserModel.addToCart(req.session.user, soul)
         res.send(req.session.user.cart)
     } catch(err) {

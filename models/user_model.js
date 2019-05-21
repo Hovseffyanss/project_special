@@ -36,13 +36,22 @@ async function createUser(user) {
 
  async function addToCart(user, soul) {
 
+    // console.log(user.cart)
+    // console.log(soul)
     const alreadyAdded = user.cart.souls.filter(function(subjectSoul){ return subjectSoul.story === soul.story })
 
-    if (alreadyAdded) {
+    
+    console.log(alreadyAdded)
+    console.log(alreadyAdded.length)
+
+    if (alreadyAdded.length > 0) {
         throw new Errors.SoulAlreadyAdded()
     }
 
      user.cart.souls.push(soul)
+
+     const value = user.cart.totalValue
+     user.cart.totalValue = +value + +soul.price
 
      await UserSchemas.updateUser(user)
 

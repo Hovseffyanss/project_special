@@ -42,6 +42,10 @@
           $("#soul-price-three-id").text(`${cart.souls[2].price} $`)
           $("#soul-name-three-id").text(`${cart.souls[2].firstname} ${cart.souls[2].lastname}`)
         }
+
+        if(cart.totalValue) {
+          $("#total").text(cart.totalValue)
+        }
       }
     })
   })
@@ -137,7 +141,7 @@
 
         <li class="list-group-item d-flex justify-content-between">
           <span>Total (USD)</span>
-          <strong>$525</strong>
+          <strong id="total">$525</strong>
         </li>
       </ul>
 
