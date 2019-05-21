@@ -69,13 +69,14 @@
           type: "GET",
           url: "/home-page/get-user",
           success: function (user) {
-            $("p#welcomeParagraph").text(`Greetings ${user.firstname}`);
+            $("p#welcomeParagraph").text(`Here dwell only the sinful souls`);
           }
         })
     
         $.ajax({
           type: "GET",
-          url: "/home-page/get-souls",
+          url: "/home-page/get-souls-by-type",
+          data: {soulType: "Sinful Soul"},
           success : function (souls) {
     
             populateHomePage(souls)
@@ -107,7 +108,7 @@
         })
     
         $("#add-to-cart3-id").on("click", function() {
-          const story = $("#soul-description2-id").text()
+          const story = $("#soul-description3-id").text()
           console.log(story)
           getSoulByStory(story)
         })

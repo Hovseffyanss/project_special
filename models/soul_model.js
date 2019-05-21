@@ -49,7 +49,7 @@ async function getSoulByStory(story) {
     return await Soul.getSoulByStory(story)
 }
 
-async function getNewArrivals(soulType) {
+async function getSoulByType(soulType) {
     return await Soul.getSoulsBySoulType(soulType)
 }
 
@@ -94,7 +94,7 @@ const soulArray = [
         firstname: "Napoleon",
         lastname: "Dynamite",
         soulType: soulType.Mediocre,
-        story: "No idea, I got lazy",
+        story: "I admit, got pretty laze with this one",
         price: 123
     },
     {
@@ -145,5 +145,6 @@ const soulArray = [
 module.exports = { 
     addSoulToDB,
     getSoulsForHome,
-    getSoulByStory
+    getSoulByStory,
+    getSoulByType
 }

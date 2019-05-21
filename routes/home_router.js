@@ -33,6 +33,18 @@ homeRouter.get("/get-souls", async (req, res, next) => {
     }
 })
 
+homeRouter.get("/get-souls-by-type", async (req, res, next) => {
+    console.log("/get-souls-by-type")
+    const type = req.query.soulType
+    try {
+        const souls = await SoulModel.getSoulByType(type)
+        res.send(souls)
+    } catch (err) {
+        console.log(err)
+        next(err)
+    }
+})
+
 homeRouter.get("/get-soul", async (req, res, next) => {
     console.log("/get-soul")
     const story = req.query.story
