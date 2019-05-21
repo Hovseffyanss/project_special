@@ -40,7 +40,7 @@ async function createUser(user) {
     // console.log(soul)
     const alreadyAdded = user.cart.souls.filter(function(subjectSoul){ return subjectSoul.story === soul.story })
 
-    
+
     console.log(alreadyAdded)
     console.log(alreadyAdded.length)
 
@@ -50,8 +50,8 @@ async function createUser(user) {
 
      user.cart.souls.push(soul)
 
-     const value = user.cart.totalValue
-     user.cart.totalValue = +value + +soul.price
+     //const value = user.cart.totalValue
+     //user.cart.totalValue = +value + +soul.price
 
      await UserSchemas.updateUser(user)
 
