@@ -14,12 +14,12 @@
   </head>
   <body> <nav class="navbar navbar-expand-sm navbar-light bg-light fixed-top">
 
-		<script>
+	<script>
 			
 		$(document).ready(function() {
     $.ajax({
       type: "GET",
-      url: "/user-profile/user",
+      url: "/user-profile/get-user-info",
       success: function (user) {
 				$("#user-firstname-id").text(user.firstname)
 				$("#user-lastname-id").text(user.lastname)

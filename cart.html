@@ -8,6 +8,8 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="styles.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
   <!--  <link rel="stylesheet" href="cart.css">-->
     <title>Soul Market</title>
   </head>
@@ -20,13 +22,13 @@
     $(document).ready(function() {
     $.ajax({
       type: "GET",
-      url: "/user-profile/cart",
+      url: "/user-profile/get-cart",
       success: function (cart) {
 
         // soul names
-        $("#soul-name-one-id").text(`${cart.souls[0].firsname} ${cart.souls[0].lastname}`)
-        $("#soul-name-two-id").text(`${cart.souls[1].firsname} ${cart.souls[1].lastname}`)
-        $("#soul-name-three-id").text(`${cart.souls[2].firsname} ${cart.souls[2].lastname}`)
+        $("#soul-name-one-id").text(`${cart.souls[0].firstname} ${cart.souls[0].lastname}`)
+        $("#soul-name-two-id").text(`${cart.souls[1].firstname} ${cart.souls[1].lastname}`)
+        $("#soul-name-three-id").text(`${cart.souls[2].firstname} ${cart.souls[2].lastname}`)
 
         // soul prices
         $("#soul-price-one-id").text(`${cart.souls[0].price} $`)
@@ -34,9 +36,9 @@
         $("#soul-price-three-id").text(`${cart.souls[2].price} $`)
 
         // soul description
-        $("#soul-description-one-id").text(cart.souls[0].description)
-        $("#soul-description-two-id").text(cart.souls[1].description)
-        $("#soul-description-three-id").text(cart.souls[2].description)
+        $("#soul-description-one-id").text(cart.souls[0].story)
+        $("#soul-description-two-id").text(cart.souls[1].story)
+        $("#soul-description-three-id").text(cart.souls[2].story)
 
       }
     })
