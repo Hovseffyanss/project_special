@@ -66,6 +66,77 @@
 
 
 
+    
+    <script>
+      $(document).ready(function() {
+        $.ajax({
+          type: "GET",
+          url: "/home-page/get-souls-by-type",
+          data: {soulType: "Mediocre Soul"},
+          success : function (souls) {
+            populateHomePage(souls)
+          }
+        })
+      })
+    
+      function populateHomePage(souls) {
+    
+        $("#soul-description1-id").text(`${souls[5].story}`)
+        $("#soul-description2-id").text(`${souls[7].story}`)
+        $("#soul-description3-id").text(`${souls[9].story}`)
+        
+        $("#soul-name1-id").text(`${souls[5].firstname} ${souls[5].lastname}`)
+        $("#soul-name2-id").text(`${souls[7].firstname} ${souls[7].lastname}`)
+        $("#soul-name3-id").text(`${souls[9].firstname} ${souls[9].lastname}`)
+        
+        $("#add-to-cart1-id").on("click", function() {
+          const story = $("#soul-description1-id").text()
+          console.log(story)
+          getSoulByStory(story)
+        })
+    
+        $("#add-to-cart2-id").on("click", function() {
+          const story = $("#soul-description3-id").text()
+          console.log(story)
+          getSoulByStory(story)
+        })
+    
+        $("#add-to-cart3-id").on("click", function() {
+          const story = $("#soul-description2-id").text()
+          console.log(story)
+          getSoulByStory(story)
+        })
+      }
+    
+      function getSoulByStory(story) {
+        $.ajax({
+          type: "GET",
+          url: "/home-page/get-soul/",
+          data:   {story: story},
+          success : function (soul) {
+            console.log(soul)
+            addToCart(soul)
+          }
+        })    
+      }
+    
+      function addToCart(soul) {
+        $.ajax({
+          type: "POST",
+          url: "/user-profile/add-to-cart",
+          data: soul,
+          success : function (cart) {
+            console.log(`Soul added to cart! You are a sick person`)
+          }
+        }) 
+      }
+    </script>
+
+
+
+
+
+
 <main role="main">
 
   <div class="album py-5 bg-light">
@@ -74,13 +145,13 @@
       <div class="row">
         <div class="col-md-4">
           <div class="card mb-4 shadow-sm">
-            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title></title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em" id="soul-name1-id">Thumbnail</text></svg>
             <div class="card-body">
-              <p class="card-text"><h5> Mediocre Soul </h5> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+              <p class="card-text" id="soul-description1-id"></p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
                   <button class="btn btn-sm btn-outline-secondary buttonicon"> <i class="fa fa-heart-o "></i></button>
-                  <button type="button" class="btn btn-sm btn-outline-secondary buttonicon"> <i class="fa fa-shopping-cart"></i> </button>
+                  <button type="button" class="btn btn-sm btn-outline-secondary buttonicon" id="add-to-cart1-id"> <i class="fa fa-shopping-cart"></i> </button>
                 </div>
 
               </div>
@@ -89,13 +160,13 @@
         </div>
         <div class="col-md-4">
           <div class="card mb-4 shadow-sm">
-            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title ></title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em" id="soul-name2-id">Thumbnail</text></svg>
             <div class="card-body">
-              <p class="card-text"><h5> Sinful Soul </h5> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+              <p class="card-text" id="soul-description2-id"></p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
                   <button type="button" class="btn btn-sm btn-outline-secondary buttonicon"> <i class="fa fa-heart-o "></i></button>
-                  <button type="button" class="btn btn-sm btn-outline-secondary buttonicon"> <i class="fa fa-shopping-cart"></i> </button>
+                  <button type="button" class="btn btn-sm btn-outline-secondary buttonicon" id="add-to-cart2-id"> <i class="fa fa-shopping-cart"></i> </button>
                 </div>
 
               </div>
@@ -104,115 +175,19 @@
         </div>
         <div class="col-md-4">
           <div class="card mb-4 shadow-sm">
-            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title></title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em" id="soul-name3-id">Thumbnail</text></svg>
             <div class="card-body">
-              <p class="card-text"><h5> Saint Soul </h5> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+              <p class="card-text" id="soul-description3-id"></p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
                   <button type="button" class="btn btn-sm btn-outline-secondary buttonicon"> <i class="fa fa-heart-o "></i></button>
-                  <button type="button" class="btn btn-sm btn-outline-secondary buttonicon"> <i class="fa fa-shopping-cart"></i> </button>
+                  <button type="button" class="btn btn-sm btn-outline-secondary buttonicon" id="add-to-cart3-id"> <i class="fa fa-shopping-cart"></i> </button>
                 </div>
-
               </div>
             </div>
           </div>
         </div>
 
-
-        <div class="col-md-4">
-          <div class="card mb-4 shadow-sm">
-            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-            <div class="card-body">
-              <p class="card-text"><h5> Saint Soul </h5> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group">
-                  <button type="button" class="btn btn-sm btn-outline-secondary buttonicon"> <i class="fa fa-heart-o "></i></button>
-                  <button type="button" class="btn btn-sm btn-outline-secondary buttonicon"> <i class="fa fa-shopping-cart"></i> </button>
-                </div>
-
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="card mb-4 shadow-sm">
-            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-            <div class="card-body">
-              <p class="card-text"><h5> Sinful Soul </h5> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group">
-                  <button type="button" class="btn btn-sm btn-outline-secondary buttonicon"> <i class="fa fa-heart-o "></i></button>
-                  <button type="button" class="btn btn-sm btn-outline-secondary buttonicon"> <i class="fa fa-shopping-cart"></i> </button>
-                </div>
-
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="card mb-4 shadow-sm">
-            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-            <div class="card-body">
-              <p class="card-text"><h5> Saint Soul </h5> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group">
-                  <button type="button" class="btn btn-sm btn-outline-secondary buttonicon"> <i class="fa fa-heart-o "></i></button>
-                  <button type="button" class="btn btn-sm btn-outline-secondary buttonicon"> <i class="fa fa-shopping-cart"></i> </button>
-                </div>
-
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-md-4">
-          <div class="card mb-4 shadow-sm">
-            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-            <div class="card-body">
-              <p class="card-text"><h5> Mediocre Soul </h5> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group">
-                  <button type="button" class="btn btn-sm btn-outline-secondary buttonicon"> <i class="fa fa-heart-o "></i></button>
-                  <button type="button" class="btn btn-sm btn-outline-secondary buttonicon"> <i class="fa fa-shopping-cart"></i> </button>
-                </div>
-
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="card mb-4 shadow-sm">
-            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-            <div class="card-body">
-              <p class="card-text"><h5> Sinful Soul </h5> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group">
-                  <button type="button" class="btn btn-sm btn-outline-secondary buttonicon"> <i class="fa fa-heart-o "></i></button>
-                  <button type="button" class="btn btn-sm btn-outline-secondary buttonicon"> <i class="fa fa-shopping-cart"></i> </button>
-                </div>
-
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="card mb-4 shadow-sm">
-            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-            <div class="card-body">
-              <p class="card-text"><h5> Saint Soul </h5> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group">
-                  <button type="button" class="btn btn-sm btn-outline-secondary buttonicon"> <i class="fa fa-heart-o "></i></button>
-                  <button type="button" class="btn btn-sm btn-outline-secondary buttonicon"> <i class="fa fa-shopping-cart"></i> </button>
-                </div>
-
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
 
 </main>
 

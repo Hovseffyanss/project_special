@@ -61,7 +61,7 @@
 <br>
   <div class="container text-center mt-5 ">
     <h1>  Online Soul Market 3:) </h1>
-    <p class="lead"> <font color=#4F5D75> If you're brave enough </font> </p>
+    <p class="lead"> <font color=#4F5D75> Here dwell only the mediocre souls </font> </p>
     </div>
 
 
@@ -69,20 +69,10 @@
       $(document).ready(function() {
         $.ajax({
           type: "GET",
-          url: "/home-page/get-user",
-          success: function (user) {
-            $("p#welcomeParagraph").text(`Here dwell only the mediocre souls`);
-          }
-        })
-    
-        $.ajax({
-          type: "GET",
           url: "/home-page/get-souls-by-type",
           data: {soulType: "Mediocre Soul"},
           success : function (souls) {
-    
             populateHomePage(souls)
-    
           }
         })
       })
@@ -140,7 +130,6 @@
       }
     </script>
     
-
 
 
 <main role="main">

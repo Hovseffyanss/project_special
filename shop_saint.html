@@ -61,19 +61,12 @@
 <br>
   <div class="container text-center mt-5 ">
     <h1>  Online Soul Market 3:) </h1>
-    <p class="lead"> <font color=#4F5D75> If you're brave enough </font> </p>
+    <p class="lead"> <font color=#4F5D75> Here thrive only the saints </font> </p>
     </div>
 
     <script>
       $(document).ready(function() {
-        $.ajax({
-          type: "GET",
-          url: "/home-page/get-user",
-          success: function (user) {
-            $("p#welcomeParagraph").text(`Here thrive only the saints`);
-          }
-        })
-    
+        
         $.ajax({
           type: "GET",
           url: "/home-page/get-souls-by-type",

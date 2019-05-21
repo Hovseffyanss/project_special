@@ -64,12 +64,78 @@
     </div>
 
 
-
-
-
-
-
     
+    <script>
+      $(document).ready(function() {
+        $.ajax({
+          type: "GET",
+          url: "/home-page/get-souls-by-type",
+          data: {soulType: "Mediocre Soul"},
+          success : function (souls) {
+            populateHomePage(souls)
+          }
+        })
+      })
+    
+      function populateHomePage(souls) {
+    
+        $("#soul-description1-id").text(`${souls[4].story}`)
+        $("#soul-description2-id").text(`${souls[10].story}`)
+        $("#soul-description3-id").text(`${souls[6].story}`)
+        
+        $("#soul-name1-id").text(`${souls[4].firstname} ${souls[4].lastname}`)
+        $("#soul-name2-id").text(`${souls[10].firstname} ${souls[10].lastname}`)
+        $("#soul-name3-id").text(`${souls[6].firstname} ${souls[6].lastname}`)
+        
+        $("#add-to-cart1-id").on("click", function() {
+          const story = $("#soul-description1-id").text()
+          console.log(story)
+          getSoulByStory(story)
+        })
+    
+        $("#add-to-cart2-id").on("click", function() {
+          const story = $("#soul-description3-id").text()
+          console.log(story)
+          getSoulByStory(story)
+        })
+    
+        $("#add-to-cart3-id").on("click", function() {
+          const story = $("#soul-description2-id").text()
+          console.log(story)
+          getSoulByStory(story)
+        })
+      }
+    
+      function getSoulByStory(story) {
+        $.ajax({
+          type: "GET",
+          url: "/home-page/get-soul/",
+          data:   {story: story},
+          success : function (soul) {
+            console.log(soul)
+            addToCart(soul)
+          }
+        })    
+      }
+    
+      function addToCart(soul) {
+        $.ajax({
+          type: "POST",
+          url: "/user-profile/add-to-cart",
+          data: soul,
+          success : function (cart) {
+            console.log(`Soul added to cart! You are a sick person`)
+          }
+        }) 
+      }
+    </script>
+
+
+
+
+
+
+
 
 
 
