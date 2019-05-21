@@ -20,19 +20,19 @@ class UserAlreadyExists extends ExpressError {
 
 class PasswordIncorrect extends ExpressError {
     constructor(){
-        super("Entered password is incorrect", 401)
+        super("Entered password is incorrect", 402)
     }
 }
 
-class ValidationError extends ExpressError {
+class SoulAlreadyAdded extends ExpressError {
     constructor(){
-        super('Username must be longer than 4 characters', 400)
+        super("This soul has already been added", 403)
     }
 }
 
-class UserIsLocked extends ExpressError {
+class UserSessionEnded extends ExpressError {
     constructor(){
-        super("User is locked", 423)
+        super("User session ended", 401)
     }
 }
 
@@ -40,6 +40,6 @@ module.exports = {
     UserNotFound,
     UserAlreadyExists,
     PasswordIncorrect,
-    ValidationError, // Username is shorter than 4 characters
-    UserIsLocked // BONUS
+    SoulAlreadyAdded,
+    UserSessionEnded
 }

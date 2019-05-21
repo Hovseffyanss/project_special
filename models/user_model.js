@@ -1,5 +1,5 @@
 const path = process.cwd();
-const UserSchemas = require(`${path}/schemas/user_schema.js`);
+const UserSchemas = require(`${path}/schemas/user_schema.js`)
 const Errors = require(`${path}/errors/errors.js`)
 
 /**
@@ -30,26 +30,28 @@ async function createUser(user) {
         await UserSchemas.createAndSaveUser(user)
     } catch (err) {
         console.log(err.message)
-        if(err.message === 'User validation failed: username: Username must be longer than 4 characters') {
-            throw new Errors.ValidationError()
-        }
         throw new Errors.UserAlreadyExists()
     }
 }
 
-/**
- * SOUL INTERACTION
- */
-
  async function addToCart(user, soul) {
 
+    // console.log(user.cart)
+    // console.log(soul)
     const alreadyAdded = user.cart.souls.filter(function(subjectSoul){ return subjectSoul.story === soul.story })
 
-    if (alreadyAdded) {
-        console.log("Already added")
+    
+    console.log(alreadyAdded)
+    console.log(alreadyAdded.length)
+
+    if (alreadyAdded.length > 0) {
+        throw new Errors.SoulAlreadyAdded()
     }
 
      user.cart.souls.push(soul)
+
+     const value = user.cart.totalValue
+     user.cart.totalValue = +value + +soul.price
 
      await UserSchemas.updateUser(user)
 
